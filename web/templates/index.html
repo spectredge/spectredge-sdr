@@ -1,0 +1,23 @@
+<html>
+<head>
+<script src='/static/js/jquery-3.7.1.min.js'></script>
+<script>
+function refresh_graph() {
+    $.get("/refresh_graph", {}, function(data, status) {
+      if (status === "success") {
+        let d = new Date();
+	$('#graph').attr('src', '/static/images/graph.png?'+d.getTime());
+	window.setTimeout(refresh_graph, 1000);
+      } else {
+        console.error("Request failed with status: " + status);
+      }
+    }, "text");
+}
+</script>
+<title></title>
+</head>
+<body onload='refresh_graph()'>
+	<img id='graph' src='/static/images/graph.png' width='1200px' height='800px' >
+</body>
+</html>
+
